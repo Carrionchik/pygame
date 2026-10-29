@@ -695,48 +695,6 @@ def main():
                         print("GAME OVER")
                         game_over = True
                         
-                        
-    """Класс для предупреждающего знака на всю половину экрана"""
-    def __init__(self, side, duration=120):
-        super().__init__()
-        self.side = side
-        self.duration = duration
-        self.timer = 0
-        
-        # Размер - половина экрана
-        half_width = SCREEN_WIDTH // 2
-        self.image = pygame.Surface((half_width, SCREEN_HEIGHT))
-        
-        # Полупрозрачный красный фон
-        self.image.fill(RED)
-        self.image.set_alpha(100)
-        
-        # Большой восклицательный знак по центру
-        font = pygame.font.SysFont("Arial", 300, bold=True)
-        exclamation = font.render("!", True, WHITE)
-        exclamation.set_alpha(200)
-        exclamation_rect = exclamation.get_rect(center=(half_width // 2, SCREEN_HEIGHT // 2))
-        self.image.blit(exclamation, exclamation_rect)
-        
-        self.rect = self.image.get_rect()
-        
-        # Позиционируем на соответствующей половине
-        if side == 'left':
-            self.rect.x = 0
-        else:
-            self.rect.x = half_width
-        self.rect.y = 0
-
-    def update(self):
-        self.timer += 1
-        # Мигание всей половины
-        if self.timer % 10 < 5:
-            self.image.set_alpha(150)
-        else:
-            self.image.set_alpha(50)
-        
-        if self.timer >= self.duration:
-            self.kill()
             # Столкновения с лазером
             if player.invincible_timer <= 0 and not player.shield_active:
                 laser_hits = pygame.sprite.spritecollide(player, laser_beams_group, False)
